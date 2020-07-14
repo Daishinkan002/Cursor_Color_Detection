@@ -13,10 +13,17 @@ window.title("Color_Detection")
 window.geometry("900x500")
 width=900
 height=500
-count = 0
+window_list = []
 
-def ignore(event):
-    return "break"
+
+def all_children (window) :
+    _list = window.winfo_children()
+
+    for item in _list :
+        if item.winfo_children() :
+            _list.extend(item.winfo_children())
+
+    return _list
 
 
 def Upload():
@@ -61,6 +68,13 @@ def Capture():
         else:
             continue
     
+
+
+def open_window():
+    list_of_tops.append(tk.Toplevel(root))
+    list_of_tops[-1].geometry("100x100")
+
+
             
 def pressed2(event):
         x, y = event.x_root, event.y_root
@@ -69,8 +83,20 @@ def pressed2(event):
         PIXEL = pyautogui.screenshot(region=(MOUSE_X, MOUSE_Y, 1, 1))
         COLOR = PIXEL.getcolors()
         if(x>x_r+250 and y > y_r and x<x_r + window.winfo_width() and y < y_r + window.winfo_height()):
-            print("RGB: %s" % (COLOR[0][1].__str__()))   
+            try:
+                del_win = window_list.pop()
+                del_win.destroy()
+                #color_window.destroy()
 
+            except:
+                a=1
+            color_window = tk.Tk()
+            color_window.title("Colors")
+            position = '180x20+'+str(x+10)+'+'+str(y-10)
+            color_window.geometry(str(position))
+            window_list.append(color_window)
+            win = tk.Label(color_window, text = "RGB: %s" % (COLOR[0][1].__str__())).grid(row=1,column=0,columnspan=3)
+            
 
 def Motion(event):
 
