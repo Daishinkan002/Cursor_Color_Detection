@@ -4,7 +4,7 @@ from PIL import Image
 from tkinter import filedialog as fd 
 import pyautogui
 import cv2
-
+import clipboard
 
 
 window = tk.Tk()
@@ -78,7 +78,11 @@ def open_window():
     list_of_tops[-1].geometry("100x100")
 
 
-            
+def printfn(code):
+    clipboard.copy(code.get())
+    print(code.get())
+
+
 def pressed2(event):
         x, y = event.x_root, event.y_root
         x_r, y_r = window.winfo_x(), window.winfo_y()
@@ -95,11 +99,13 @@ def pressed2(event):
                 a=1
             color_window = tk.Tk()
             color_window.title("Colors")
-            position = '180x40+'+str(x+10)+'+'+str(y-10)
+            position = '180x70+'+str(x+10)+'+'+str(y-10)
             color_window.geometry(str(position))
             window_list.append(color_window)
-            win = tk.Label(color_window, text = "RGB: %s" % (COLOR[0][1].__str__()), bg=rgb_to_hex(COLOR[0][1])).grid(row=1,column=0,columnspan=3)
-            win = tk.Label(color_window, text = "Hexcode : %s" % (rgb_to_hex(COLOR[0][1])), bg=rgb_to_hex(COLOR[0][1])).grid(row=2,column=0,columnspan=4)
+            code = tk.StringVar(color_window)
+            win1 = tk.Radiobutton(color_window, text = "RGB: %s" % (COLOR[0][1].__str__()), bg=rgb_to_hex(COLOR[0][1]),value = str(COLOR[0][1].__str__()), variable = code).grid(row=1,column=0,columnspan=3)
+            win2 = tk.Radiobutton(color_window, text = "Hexcode : %s" % (rgb_to_hex(COLOR[0][1])), bg=rgb_to_hex(COLOR[0][1]),value = str(rgb_to_hex(COLOR[0][1])), variable = code).grid(row=2,column=0,columnspan=3)
+            copybtn = tk.Button(color_window, text = "Copy",activebackground="grey", activeforeground="blue",bg="grey", command = lambda:printfn(code)).grid(row=3, column=0,columnspan=3)
             color_window.configure(bg=rgb_to_hex(COLOR[0][1]))
 
 def Motion(event):
