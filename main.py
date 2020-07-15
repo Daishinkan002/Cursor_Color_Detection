@@ -16,6 +16,9 @@ height=500
 window_list = []
 
 
+def rgb_to_hex(rgb):
+    return '#%02x%02x%02x' % rgb
+
 def all_children (window) :
     _list = window.winfo_children()
 
@@ -92,10 +95,11 @@ def pressed2(event):
                 a=1
             color_window = tk.Tk()
             color_window.title("Colors")
-            position = '180x20+'+str(x+10)+'+'+str(y-10)
+            position = '180x40+'+str(x+10)+'+'+str(y-10)
             color_window.geometry(str(position))
             window_list.append(color_window)
             win = tk.Label(color_window, text = "RGB: %s" % (COLOR[0][1].__str__())).grid(row=1,column=0,columnspan=3)
+            win = tk.Label(color_window, text = "Hexcode : %s" % (rgb_to_hex(COLOR[0][1]))).grid(row=2,column=0,columnspan=4)
             
 
 def Motion(event):
