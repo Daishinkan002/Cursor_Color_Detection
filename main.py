@@ -98,9 +98,9 @@ def pressed2(event):
             position = '180x40+'+str(x+10)+'+'+str(y-10)
             color_window.geometry(str(position))
             window_list.append(color_window)
-            win = tk.Label(color_window, text = "RGB: %s" % (COLOR[0][1].__str__())).grid(row=1,column=0,columnspan=3)
-            win = tk.Label(color_window, text = "Hexcode : %s" % (rgb_to_hex(COLOR[0][1]))).grid(row=2,column=0,columnspan=4)
-            
+            win = tk.Label(color_window, text = "RGB: %s" % (COLOR[0][1].__str__()), bg=rgb_to_hex(COLOR[0][1])).grid(row=1,column=0,columnspan=3)
+            win = tk.Label(color_window, text = "Hexcode : %s" % (rgb_to_hex(COLOR[0][1])), bg=rgb_to_hex(COLOR[0][1])).grid(row=2,column=0,columnspan=4)
+            color_window.configure(bg=rgb_to_hex(COLOR[0][1]))
 
 def Motion(event):
 
